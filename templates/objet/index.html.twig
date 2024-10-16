@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Objet index{% endblock %}
+
+{% block body %}
+    <h1>Objet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Image</th> <!-- Nouvelle colonne pour afficher l'image -->
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for objet in objets %}
+            <tr>
+                <td>{{ objet.id }}</td>
+                <td>{{ objet.nom }}</td>
+                <td>{{ objet.description }}</td>
+                <td>
+                    {% if objet.image %}
+                        <img src="{{ objet.image }}" alt="{{ objet.nom }}" width="150"> <!-- Affichage de l'image -->
+                    {% else %}
+                        No image available
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_objet_show', {'id': objet.id}) }}">show</a>
+                    <a href="{{ path('app_objet_edit', {'id': objet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td> <!-- Ajusté pour 5 colonnes -->
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_objet_new') }}">Create new</a>
+{% endblock %}
